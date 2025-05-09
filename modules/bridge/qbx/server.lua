@@ -1,6 +1,7 @@
 assert(lib.checkDependency('qbx_core', '1.18.1'), 'qbx_core v1.18.1 or higher is required')
 --assert(lib.checkDependency('qbx_vehicles', '1.2.0'), 'qbx_vehicles v1.2.0 or higher is required')
 local Inventory = require 'modules.inventory.server'
+local Items = require 'modules.items.server'
 local QBX = exports.qbx_core
 
 AddEventHandler('qbx_core:server:playerLoggedOut', server.playerDropped)
@@ -22,6 +23,21 @@ local function setupPlayer(playerData)
         local playerAccount = account == 'money' and 'cash' or account
         Inventory.SetItem(playerData.source, account, playerData.money[playerAccount])
     end
+end
+
+local function ensureItemRarities(items)
+    if not items then return items end
+
+    for slot, item in pairs(items) do
+        if item and not item.rarity then
+            local itemData = Items(item.name)
+            if itemData then
+                item.rarity = itemData.rarity or 'common'
+            end
+        end
+    end
+
+    return items
 end
 
 AddStateBagChangeHandler('loadInventory', nil, function(bagName, _, value)
@@ -60,7 +76,8 @@ function server.syncInventory(inv)
     if not accounts then return end
 
     local player = QBX:GetPlayer(inv.id)
-    player.Functions.SetPlayerData('items', inv.items)
+    local UpdatedItems = ensureItemRarities(inv.items)
+    player.Functions.SetPlayerData('items', UpdatedItems)
 
     for account, amount in pairs(accounts) do
         account = account == 'money' and 'cash' or account
