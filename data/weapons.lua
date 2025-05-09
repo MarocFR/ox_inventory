@@ -1,5 +1,87 @@
 return {
 	Weapons = {
+		['WEAPON_DRAGON'] = {
+			label = 'Dragon Rifle',
+			weight = 4100,
+			durability = 0.03,
+			ammoname = 'ammo-rifle',
+		},
+
+		['WEAPON_AKBC'] = {
+			label = 'Birthday Rifle',
+			weight = 4100,
+			durability = 0.03,
+			ammoname = 'ammo-rifle',
+		},
+		
+		['WEAPON_GHC'] = {
+			label = 'Graviton Hand Cannon',
+			weight = 969,
+			durability = 0.2,
+			ammoname = 'ammo-9'
+		},		
+
+		['WEAPON_BEANBAG'] = {
+			label = 'Beanbag Shotgun',
+			weight = 5200,
+			durability = 0.05,
+			ammoname = 'ammo-shotgun',
+		},	
+
+		['WEAPON_KATANASS'] = {
+			label = 'Katana',
+			weight = 200,
+			durability = 0.1,
+		},
+
+		['WEAPON_KATANASS2'] = {
+			label = 'Katana',
+			weight = 200,
+			durability = 0.1,
+		},
+
+		['WEAPON_KATANASS3'] = {
+			label = 'Katana',
+			weight = 200,
+			durability = 0.1,
+		},
+
+		['WEAPON_KATANASS4'] = {
+			label = 'Katana',
+			weight = 200,
+			durability = 0.1,
+		},
+
+		['WEAPON_KATANASS5'] = {
+			label = 'Katana',
+			weight = 200,
+			durability = 0.1,
+		},
+
+		['WEAPON_KATANASS6'] = {
+			label = 'Katana',
+			weight = 200,
+			durability = 0.1,
+		},
+
+		['WEAPON_KATANASS7'] = {
+			label = 'Katana',
+			weight = 200,
+			durability = 0.1,
+		},
+
+		['WEAPON_KATANASS8'] = {
+			label = 'Katana',
+			weight = 200,
+			durability = 0.1,
+		},
+
+		['WEAPON_KATANASS9'] = {
+			label = 'Katana',
+			weight = 200,
+			durability = 0.1,
+		},
+
 		['WEAPON_BATTLERIFLE'] = {
 			label = 'Battle Rifle',
 			weight = 3300,
