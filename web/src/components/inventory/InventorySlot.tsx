@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useMemo } from 'react';
 import { DragSource, Inventory, InventoryType, Slot, SlotWithItem } from '../../typings';
 import { useDrag, useDragDropManager, useDrop } from 'react-dnd';
 import { useAppDispatch } from '../../store';
@@ -23,6 +23,16 @@ interface SlotProps {
   item: Slot;
 }
 
+// Fortnite rarity levels
+const getRarityClass = (item: SlotWithItem): string => {
+  // If item has a specific rarity in metadata, use that
+  if (item.rarity) {
+    return `rarity-${item.rarity.toLowerCase()}`;
+  }
+  // Default to common
+  return 'rarity-common';
+};
+
 const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> = (
   { item, inventoryId, inventoryType, inventoryGroups },
   ref
@@ -30,6 +40,11 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
   const manager = useDragDropManager();
   const dispatch = useAppDispatch();
   const timerRef = useRef<number | null>(null);
+
+  // Determine item rarity class
+  const rarityClass = useMemo(() => {
+    return isSlotWithItem(item) ? getRarityClass(item as SlotWithItem) : '';
+  }, [item]);
 
   const canDrag = useCallback(() => {
     return canPurchaseItem(item, { type: inventoryType, groups: inventoryGroups }) && canCraftItem(item, inventoryType);
@@ -119,20 +134,31 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
 
   const refs = useMergeRefs([connectRef, ref]);
 
+  // Create a fortnite style background pattern
+  const slotPattern = useMemo(() => {
+    if (!isSlotWithItem(item)) return {};
+
+    // Add slight fortnite pattern effect
+    return {
+      backgroundImage: `url(${item?.name ? getItemUrl(item as SlotWithItem) : 'none'})`,
+      boxShadow: isSlotWithItem(item) ? `inset 0 0 20px rgba(0,0,0,0.5)` : 'none',
+    };
+  }, [item]);
+
   return (
     <div
       ref={refs}
       onContextMenu={handleContext}
       onClick={handleClick}
-      className="inventory-slot"
+      className={`inventory-slot ${rarityClass}`}
       style={{
         filter:
           !canPurchaseItem(item, { type: inventoryType, groups: inventoryGroups }) || !canCraftItem(item, inventoryType)
             ? 'brightness(80%) grayscale(100%)'
             : undefined,
         opacity: isDragging ? 0.4 : 1.0,
-        backgroundImage: `url(${item?.name ? getItemUrl(item as SlotWithItem) : 'none'}`,
-        border: isOver ? '1px dashed rgba(255,255,255,0.4)' : '',
+        ...slotPattern,
+        border: isOver ? '2px dashed rgba(255,255,255,0.6)' : '',
       }}
     >
       {isSlotWithItem(item) && (
@@ -141,7 +167,7 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
           onMouseEnter={() => {
             timerRef.current = window.setTimeout(() => {
               dispatch(openTooltip({ item, inventoryType }));
-            }, 500) as unknown as number;
+            }, 300) as unknown as number;
           }}
           onMouseLeave={() => {
             dispatch(closeTooltip());
@@ -198,7 +224,7 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
                     {item.price > 0 && (
                       <div
                         className="item-slot-price-wrapper"
-                        style={{ color: item.currency === 'money' || !item.currency ? '#2ECC71' : '#E74C3C' }}
+                        style={{ color: item.currency === 'money' || !item.currency ? '#3bca5d' : '#ff4747' }}
                       >
                         <p>
                           {Locale.$ || '$'}

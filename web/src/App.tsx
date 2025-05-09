@@ -27,6 +27,7 @@ debugData([
           {
             slot: 1,
             name: 'iron',
+            rarity: 'common',
             weight: 3000,
             metadata: {
               description: `name: Svetozar Miletic  \n Gender: Male`,
@@ -37,24 +38,26 @@ debugData([
             },
             count: 5,
           },
-          { slot: 2, name: 'powersaw', weight: 0, count: 1, metadata: { durability: 75 } },
-          { slot: 3, name: 'copper', weight: 100, count: 12, metadata: { type: 'Special' } },
+          { slot: 2, name: 'powersaw', rarity: 'uncommon', weight: 0, count: 1, metadata: { durability: 75 } },
+          { slot: 3, name: 'copper', rarity: 'rare', weight: 100, count: 12, metadata: { type: 'Special' } },
           {
             slot: 4,
             name: 'water',
+            rarity: 'epic',
             weight: 100,
             count: 1,
             metadata: { description: 'Generic item description' },
           },
-          { slot: 5, name: 'water', weight: 100, count: 1 },
+          { slot: 5, name: 'water', rarity: 'legendary', weight: 100, count: 1, metadata: { } },
           {
             slot: 6,
             name: 'backwoods',
+            rarity: 'mythic',
             weight: 100,
             count: 1,
             metadata: {
               label: 'Russian Cream',
-              imageurl: 'https://i.imgur.com/2xHhTTz.png',
+              imageurl: 'https://raw.githubusercontent.com/davefl67/mi_ox_items_template/refs/heads/main/images/banana.png',
             },
           },
         ],

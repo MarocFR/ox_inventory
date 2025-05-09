@@ -77,13 +77,15 @@ export const ItemNotificationsProvider = ({ children }: { children: React.ReactN
     <ItemNotificationsContext.Provider value={{ add }}>
       {children}
       {createPortal(
-        <TransitionGroup className="item-notification-container">
-          {queue.values.map((notification, index) => (
-            <Fade key={`item-notification-${index}`}>
-              <ItemNotification item={notification.item} ref={notification.ref} />
-            </Fade>
-          ))}
-        </TransitionGroup>,
+        queue.values.length > 0 ? (
+          <TransitionGroup className="item-notification-container">
+            {queue.values.map((notification, index) => (
+              <Fade key={`item-notification-${index}`}>
+                <ItemNotification item={notification.item} ref={notification.ref} />
+              </Fade>
+            ))}
+          </TransitionGroup>
+        ) : null,
         document.body
       )}
     </ItemNotificationsContext.Provider>

@@ -14,6 +14,7 @@ export type SlotWithItem = Slot & {
   count: number;
   weight: number;
   durability?: number;
+  rarity?: string;
   price?: number;
   currency?: string;
   ingredients?: { [key: string]: number };

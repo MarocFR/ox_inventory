@@ -1,14 +1,5 @@
 import { Locale } from '../../store/locale';
 import React from 'react';
-import {
-  FloatingFocusManager,
-  FloatingOverlay,
-  FloatingPortal,
-  useDismiss,
-  useFloating,
-  useInteractions,
-  useTransitionStyles,
-} from '@floating-ui/react';
 
 interface Props {
   infoVisible: boolean;
@@ -16,68 +7,61 @@ interface Props {
 }
 
 const UsefulControls: React.FC<Props> = ({ infoVisible, setInfoVisible }) => {
-  const { refs, context } = useFloating({
-    open: infoVisible,
-    onOpenChange: setInfoVisible,
-  });
+  // List of keybind controls with Fortnite styling
+  const controls = [
+    { key: 'RMB', description: Locale.ui_rmb || 'Opens context menu' },
+    { key: 'ALT + LMB', description: Locale.ui_alt_lmb || 'Uses the item' },
+    { key: 'CTRL + LMB', description: Locale.ui_ctrl_lmb || 'Splits the item stack' },
+    { key: 'SHIFT + Drag', description: Locale.ui_shift_drag || 'Quick moves item between inventories' },
+    { key: 'CTRL + SHIFT + LMB', description: Locale.ui_ctrl_shift_lmb || 'Drops item on the ground' },
+  ];
 
-  const dismiss = useDismiss(context, {
-    outsidePressEvent: 'mousedown',
-  });
-
-  const { isMounted, styles } = useTransitionStyles(context);
-
-  const { getFloatingProps } = useInteractions([dismiss]);
+  // If not visible, don't render anything
+  if (!infoVisible) return null;
 
   return (
-    <>
-      {isMounted && (
-        <FloatingPortal>
-          <FloatingOverlay lockScroll className="useful-controls-dialog-overlay" data-open={infoVisible} style={styles}>
-            <FloatingFocusManager context={context}>
-              <div ref={refs.setFloating} {...getFloatingProps()} className="useful-controls-dialog" style={styles}>
-                <div className="useful-controls-dialog-title">
-                  <p>{Locale.ui_usefulcontrols || 'Useful controls'}</p>
-                  <div className="useful-controls-dialog-close" onClick={() => setInfoVisible(false)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 400 528">
-                      <path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="useful-controls-content-wrapper">
-                  <p>
-                    <kbd>RMB</kbd>
-                    <br />
-                    {Locale.ui_rmb}
-                  </p>
-                  <p>
-                    <kbd>ALT + LMB</kbd>
-                    <br />
-                    {Locale.ui_alt_lmb}
-                  </p>
-                  <p>
-                    <kbd>CTRL + LMB</kbd>
-                    <br />
-                    {Locale.ui_ctrl_lmb}
-                  </p>
-                  <p>
-                    <kbd>SHIFT + Drag</kbd>
-                    <br />
-                    {Locale.ui_shift_drag}
-                  </p>
-                  <p>
-                    <kbd>CTRL + SHIFT + LMB</kbd>
-                    <br />
-                    {Locale.ui_ctrl_shift_lmb}
-                  </p>
-                  <div style={{ textAlign: 'right' }}>🐂</div>
-                </div>
+    <div className="useful-controls-overlay">
+      <div className="useful-controls-dialog">
+        {/* Header with blue background */}
+        <div className="useful-controls-dialog-header">
+          <div className="useful-controls-header-accent"></div>
+          <p className="useful-controls-dialog-title">{Locale.ui_usefulcontrols || 'CONTROLS'}</p>
+          <button
+            className="useful-controls-dialog-close"
+            onClick={() => setInfoVisible(false)}
+            aria-label="Close controls dialog"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512">
+              <path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Subtitle */}
+        <div className="useful-controls-dialog-subtitle">
+          FORTNITE INVENTORY SYSTEM
+        </div>
+
+        {/* Content */}
+        <div className="useful-controls-content-wrapper">
+          {controls.map((control, index) => (
+            <div className="control-item" key={index}>
+              <div className="control-key-wrapper">
+                <kbd className="control-key">{control.key}</kbd>
               </div>
-            </FloatingFocusManager>
-          </FloatingOverlay>
-        </FloatingPortal>
-      )}
-    </>
+              <div className="control-description">
+                {control.description}
+              </div>
+            </div>
+          ))}
+
+          {/* Footer */}
+          <div className="dialog-footer">
+            <div className="dialog-footer-icon">🔫</div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
