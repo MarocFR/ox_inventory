@@ -1,6 +1,7 @@
 return {
 	['parachute'] = {
 		label = 'Parachute',
+		rarity = 'uncommon',
 		weight = 8000,
 		stack = false,
 		client = {
@@ -11,23 +12,30 @@ return {
 	['money'] = {
 		label = 'Money',
 	},
-	['coin_platinum'] = {
-		label = 'Platinum Coin',
-	},
-	['coin_gold'] = {
-		label = 'Gold Coin',
-	},
-	['coin_silver'] = {
-		label = 'Silver Coin',
-	},
+	-- ['coin_diamond'] = {
+	-- 	label = 'Diamond Coin',
+	-- 	rarity = ''
+	-- },
+	-- ['coin_platinum'] = {
+	-- 	label = 'Platinum Coin',
+	-- 	rarity = ''
+	-- },
+	-- ['coin_gold'] = {
+	-- 	label = 'Gold Coin',
+	-- },
+	-- ['coin_silver'] = {
+	-- 	label = 'Silver Coin',
+	-- },
 	['radio'] = {
 		label = 'Radio',
+		rarity = 'uncommon',
 		weight = 1000,
 		stack = false,
 		allowArmed = true
 	},
 	['bandage'] = {
 		label = 'Bandage',
+		rarity = 'common',
 		weight = 150,
 		stack = true,
 		close = true,
@@ -39,6 +47,7 @@ return {
 	},
 	['medkit'] = {
 		label = 'Medkit',
+		rarity = 'epic',
 		weight = 150,
 		stack = true,
 		close = true,
@@ -50,6 +59,7 @@ return {
 	},
 	['potion_chlorophyll'] = {
 		label = 'Chlorophyll Potion',
+		rarity = 'rare',
 		weight = 150,
 		stack = true,
 		close = true,
@@ -61,6 +71,7 @@ return {
 	},
 	['potion_mini_shield'] = {
 		label = 'Shield Potion',
+		rarity = 'uncommon',
 		weight = 150,
 		stack = true,
 		close = true,
@@ -72,6 +83,7 @@ return {
 	},
 	['potion_medium_shield'] = {
 		label = 'Shield Potion',
+		rarity = 'rare',
 		weight = 150,
 		stack = true,
 		close = true,
@@ -83,6 +95,7 @@ return {
 	},
 	['potion_max_shield'] = {
 		label = 'Shield Potion',
+		rarity = 'epic',
 		weight = 150,
 		stack = true,
 		close = true,
